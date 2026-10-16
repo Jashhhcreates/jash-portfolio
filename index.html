@@ -1,0 +1,493 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Jash Portfolio</title>
+<meta name="description" content="Jash Shah: video editor, content creator, creative strategist and AI prompter in Mumbai.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+/* Layout: a cobalt "feed" you scroll like a phone — giant type hero, post-card grid, prompt console, contact slab. Single deliberate look (cobalt + chalk + lemon highlighter). */
+:root{
+  --cobalt:#1A2CF0;
+  --cobalt-deep:#0E1AA8;
+  --chalk:#F4F2FF;
+  --haze:#C7CBFF;
+  --lemon:#FFE45C;
+  --ink:#090D36;
+  --display:"Bricolage Grotesque", "Arial Black", system-ui, sans-serif;
+  --body:"Instrument Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --mono:"JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+  --gutter:max(16px, env(safe-area-inset-left, 0px));
+  --gutter-r:max(16px, env(safe-area-inset-right, 0px));
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--cobalt);color:var(--chalk);font-family:var(--body);font-size:16px;line-height:1.55;overflow-x:hidden}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--cobalt)}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--lemon);outline-offset:3px;border-radius:4px}
+.wrap{max-width:1180px;margin:0 auto;padding-left:var(--gutter);padding-right:var(--gutter-r)}
+.mark{background:var(--lemon);color:var(--ink);padding:0 .12em;border-radius:.08em;box-decoration-break:clone;-webkit-box-decoration-break:clone}
+.swap{border-bottom:1.5px dashed currentColor}
+.eyebrow{font-family:var(--mono);font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;color:var(--haze)}
+
+/* nav */
+header.nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:9;background:color-mix(in srgb,var(--cobalt) 88%,transparent);backdrop-filter:blur(8px)}
+.nav .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-block:14px}
+.logo{font-family:var(--display);font-weight:800;font-size:1.35rem;letter-spacing:-.02em;text-decoration:none}
+.logo span{color:var(--lemon)}
+.nav ul{display:flex;gap:22px;list-style:none;margin:0;padding:0;font-size:.95rem}
+.nav ul a{text-decoration:none;opacity:.85}
+.nav ul a:hover{opacity:1;text-decoration:underline;text-underline-offset:4px}
+.status{font-family:var(--mono);font-size:.75rem;display:flex;align-items:center;gap:8px;white-space:nowrap}
+.status i{width:8px;height:8px;border-radius:50%;background:var(--lemon);box-shadow:0 0 0 0 var(--lemon);animation:ping 2s infinite}
+@keyframes ping{70%{box-shadow:0 0 0 8px transparent}100%{box-shadow:0 0 0 0 transparent}}
+@media (max-width:760px){.nav ul{display:none}}
+
+/* hero */
+.hero{padding-block:56px 40px}
+.hero h1{font-family:var(--display);font-weight:800;font-size:clamp(3rem,11vw,9.5rem);line-height:.88;letter-spacing:-.045em;margin:18px 0 0;text-wrap:balance}
+.hero h1 .stop{display:inline-block;transform:rotate(-3deg)}
+.hero-row{display:grid;grid-template-columns:1.1fr .9fr;gap:32px;margin-top:40px;align-items:end}
+.hero-row p{font-size:1.15rem;max-width:34ch;margin:0;color:var(--chalk)}
+.console{background:var(--ink);color:var(--chalk);border-radius:14px;padding:16px 18px;font-family:var(--mono);font-size:.86rem;line-height:1.6;min-width:0;box-shadow:8px 8px 0 var(--lemon)}
+.console .bar{display:flex;gap:6px;margin-bottom:10px}
+.console .bar b{width:10px;height:10px;border-radius:50%;background:var(--haze);opacity:.5}
+.console .p{color:var(--lemon)}
+.console .out{color:var(--haze)}
+.caret{display:inline-block;width:.55em;height:1.05em;vertical-align:-.15em;background:var(--lemon);animation:blink 1s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}
+@media (max-width:820px){.hero-row{grid-template-columns:1fr}}
+
+/* marquee */
+.marquee{border-block:2px solid var(--chalk);overflow:hidden;background:var(--lemon);color:var(--ink)}
+.marquee .track{display:flex;gap:40px;width:max-content;padding-block:12px;font-family:var(--display);font-weight:800;font-size:1.6rem;letter-spacing:-.02em;animation:slide 26s linear infinite}
+.marquee .track span::after{content:"✦";margin-left:40px;font-size:1rem;vertical-align:.3em}
+@keyframes slide{to{transform:translateX(-50%)}}
+
+/* stats */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:0;padding-block:48px}
+.stat{padding:8px 20px;border-left:2px solid var(--haze)}
+.stat:first-child{border-left:none;padding-left:0}
+.stat b{display:block;font-family:var(--display);font-weight:800;font-size:clamp(2.2rem,5vw,3.6rem);line-height:1;letter-spacing:-.03em;font-variant-numeric:tabular-nums}
+.stat span{font-size:.92rem;color:var(--haze)}
+.note{font-family:var(--mono);font-size:.72rem;color:var(--haze);margin-top:-28px;padding-bottom:24px}
+@media (max-width:760px){.stats{grid-template-columns:1fr 1fr;row-gap:28px}.stat:nth-child(3){border-left:none;padding-left:0}}
+
+section{padding-block:72px}
+.sec-head{display:flex;justify-content:space-between;align-items:end;gap:24px;flex-wrap:wrap;margin-bottom:36px}
+.sec-head h2{font-family:var(--display);font-weight:800;font-size:clamp(2.2rem,6vw,4.4rem);line-height:.95;letter-spacing:-.035em;margin:8px 0 0;text-wrap:balance}
+.sec-head p{max-width:42ch;margin:0;color:var(--haze)}
+
+/* post cards */
+.feed{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.post{background:var(--chalk);color:var(--ink);border-radius:22px;padding:14px;display:flex;flex-direction:column;gap:12px;transition:transform .35s cubic-bezier(.2,.9,.3,1.3);min-width:0}
+.post:nth-child(3n+1){transform:rotate(-1.5deg)}
+.post:nth-child(3n+3){transform:rotate(1.2deg)}
+.post:hover{transform:rotate(0) translateY(-8px) scale(1.02)}
+.post-top{display:flex;align-items:center;gap:10px;font-size:.85rem;font-weight:600}
+.avatar{width:30px;height:30px;border-radius:50%;background:var(--cobalt);color:var(--lemon);display:grid;place-items:center;font-family:var(--display);font-weight:800;font-size:.85rem}
+.post-top small{margin-left:auto;font-family:var(--mono);font-weight:400;font-size:.7rem;padding:3px 8px;border:1.5px solid var(--ink);border-radius:99px}
+.visual{aspect-ratio:4/5;max-width:100%;border-radius:14px;display:flex;flex-direction:column;justify-content:space-between;padding:18px;font-family:var(--display);font-weight:800;letter-spacing:-.03em;line-height:.95;overflow:hidden;position:relative}
+.v1{background:var(--cobalt);color:var(--chalk);font-size:2.1rem}
+.v2{background:var(--lemon);color:var(--ink);font-size:2.4rem}
+.v3{background:var(--ink);color:var(--lemon);font-size:2rem}
+.visual .tag{font-family:var(--mono);font-weight:400;font-size:.72rem;letter-spacing:.06em;text-transform:uppercase}
+.visual .big{font-size:5.5rem;line-height:.8}
+.reel{text-decoration:none;justify-content:space-between}
+.reel .play{align-self:center;font-size:3.5rem;width:96px;height:96px;border-radius:50%;background:var(--lemon);color:var(--ink);display:grid;place-items:center;padding-left:8px;transition:transform .25s}
+.reel:hover .play{transform:scale(1.1)}
+.embed{border-radius:14px;overflow:hidden;background:var(--ink);aspect-ratio:9/16;max-width:100%}
+.embed iframe{width:100%;height:100%;border:0;display:block}
+.post h3{font-family:var(--display);font-size:1.2rem;margin:2px 4px 0;letter-spacing:-.01em}
+.post p{margin:0 4px;font-size:.92rem;color:#3A3F6E}
+.metrics{display:flex;gap:14px;flex-wrap:wrap;margin:0 4px 4px;font-family:var(--mono);font-size:.78rem;font-variant-numeric:tabular-nums}
+.metrics b{font-weight:600}
+@media (max-width:900px){.feed{grid-template-columns:1fr 1fr}}
+@media (max-width:580px){.feed{grid-template-columns:1fr}.post{transform:none!important}}
+
+/* prompt lab */
+.lab{background:var(--ink);border-radius:28px;padding:clamp(20px,4vw,44px)}
+.lab .sec-head p{color:var(--haze)}
+.tabs{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:22px}
+.tabs button{font:600 .9rem var(--body);color:var(--chalk);background:transparent;border:1.5px solid var(--haze);border-radius:99px;padding:9px 16px;cursor:pointer;transition:background .2s,color .2s}
+.tabs button:hover{border-color:var(--lemon)}
+.tabs button[aria-selected="true"]{background:var(--lemon);color:var(--ink);border-color:var(--lemon)}
+.pane{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.box{border:1.5px solid #2A2F6B;border-radius:16px;padding:18px;min-width:0;display:flex;flex-direction:column;gap:12px}
+.box-h{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.box pre{margin:0;white-space:pre-wrap;word-break:break-word;font-family:var(--mono);font-size:.84rem;line-height:1.65;color:var(--chalk)}
+.box.out pre{color:var(--haze)}
+.box pre em{font-style:normal;color:var(--lemon)}
+.copy{font:600 .75rem var(--mono);color:var(--ink);background:var(--chalk);border:0;border-radius:8px;padding:6px 10px;cursor:pointer}
+.why{margin-top:18px;font-size:.95rem;color:var(--haze)}
+.why b{color:var(--lemon);font-weight:600}
+@media (max-width:820px){.pane{grid-template-columns:1fr}}
+
+/* toolkit */
+.kit{display:grid;grid-template-columns:repeat(3,1fr);gap:28px}
+.kit h3{font-family:var(--display);font-size:1.4rem;margin:0 0 12px;letter-spacing:-.02em}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chips span{border:1.5px solid var(--chalk);border-radius:99px;padding:6px 12px;font-size:.88rem}
+@media (max-width:760px){.kit{grid-template-columns:1fr}}
+
+/* now */
+.now{background:var(--cobalt-deep)}
+.now-grid{display:grid;grid-template-columns:1fr 1.3fr;gap:40px;margin-top:12px;align-items:start}
+.now h2{font-family:var(--display);font-weight:800;font-size:clamp(2rem,5vw,3.6rem);line-height:.95;letter-spacing:-.035em;margin:0;text-wrap:balance}
+.now ul{list-style:none;margin:0;padding:0;display:grid;gap:0}
+.now li{display:grid;grid-template-columns:minmax(0,11rem) minmax(0,1fr);gap:16px;padding-block:16px;border-top:1.5px solid var(--haze)}
+.now li:last-child{border-bottom:1.5px solid var(--haze)}
+.now li b{font-family:var(--display);font-size:1.25rem;color:var(--lemon);letter-spacing:-.01em}
+.now li span{color:var(--chalk)}
+@media (max-width:820px){.now-grid{grid-template-columns:1fr}.now li{grid-template-columns:1fr;gap:4px}}
+
+/* studio */
+.studio-grid{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center}
+.studio h2{font-family:var(--display);font-weight:800;font-size:clamp(3rem,9vw,6.5rem);line-height:.88;letter-spacing:-.045em;margin:8px 0 18px}
+.studio .lede{font-size:1.1rem;max-width:40ch;margin:0 0 24px}
+.btn-lemon{display:inline-block;font-weight:600;background:var(--lemon);color:var(--ink);padding:12px 18px;border-radius:12px;text-decoration:none;box-shadow:5px 5px 0 var(--chalk);transition:transform .2s,box-shadow .2s}
+.btn-lemon:hover{transform:translate(-2px,-2px);box-shadow:7px 7px 0 var(--chalk)}
+.services{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:1fr 1fr;border-top:1.5px solid var(--haze)}
+.services li{padding:14px 4px;border-bottom:1.5px solid var(--haze);font-family:var(--display);font-weight:600;font-size:1.15rem;letter-spacing:-.01em}
+.services li:nth-child(odd){border-right:1.5px solid var(--haze);padding-right:12px}
+.services li:nth-child(even){padding-left:16px}
+@media (max-width:820px){.studio-grid{grid-template-columns:1fr}}
+
+/* contact */
+.contact{background:var(--lemon);color:var(--ink)}
+.contact .wrap{padding-block:80px}
+.contact h2{font-family:var(--display);font-weight:800;font-size:clamp(2.8rem,10vw,8rem);line-height:.86;letter-spacing:-.045em;margin:0 0 32px;text-wrap:balance}
+.contact .row{display:flex;flex-wrap:wrap;gap:14px;align-items:center}
+.email{font-family:var(--mono);font-size:clamp(1rem,2.6vw,1.4rem);background:var(--ink);color:var(--lemon);padding:12px 18px;border-radius:12px;user-select:all;word-break:break-all}
+.btn{font:600 1rem var(--body);background:transparent;color:var(--ink);border:2px solid var(--ink);border-radius:12px;padding:12px 18px;cursor:pointer;text-decoration:none}
+.btn:hover{background:var(--ink);color:var(--lemon)}
+.socials{display:flex;gap:22px;flex-wrap:wrap;margin-top:36px;font-weight:600}
+.socials a{text-underline-offset:5px}
+footer{background:var(--lemon);color:var(--ink);font-family:var(--mono);font-size:.75rem}
+footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;padding-block:18px;border-top:2px solid var(--ink)}
+
+/* load-in: starts visible, only nudges */
+@keyframes rise{from{transform:translateY(18px)}to{transform:none}}
+.hero h1,.hero-row{animation:rise .8s cubic-bezier(.2,.8,.2,1) both}
+.hero-row{animation-delay:.12s}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap">
+    <a class="logo" href="#top">jash<span>.</span></a>
+    <ul>
+      <li><a href="#now">Now</a></li>
+      <li><a href="#studio">Studio</a></li>
+      <li><a href="#work">Work</a></li>
+      <li><a href="#prompts">Prompt lab</a></li>
+      <li><a href="#kit">Skills</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <div class="status"><i></i> social media intern @ Hostoo</div>
+  </div>
+</header>
+
+<main id="top">
+  <div class="wrap hero">
+    <div class="eyebrow">Jash Shah · Video editor · Content creator · Creative strategist · AI prompter</div>
+    <h1>Data in. Content that <span class="stop mark">lands</span> out.</h1>
+    <div class="hero-row">
+      <p>Hi, I'm <b>Jash</b> from Mumbai. Right now I edit videos, create content and plan creative strategy as a Social Media Intern at Hostoo Unlimited. I also read the numbers in GA4, build websites in HTML, and use AI to ship things fast.</p>
+      <div class="console" aria-label="Prompt console">
+        <div class="bar"><b></b><b></b><b></b></div>
+        <div><span class="p">&gt; prompt:</span> <span id="typed">write a hook that stops the thumb in under 1 second</span><span class="caret"></span></div>
+        <div class="out" id="typed-out">→ "You're scrolling past the one tip that fixes your reach."</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="marquee" aria-hidden="true">
+    <div class="track">
+      <span>Video editing</span><span>Content creation</span><span>Creative strategy</span><span>Brand storytelling</span><span>Google Analytics 4</span><span>Claude</span><span>Python</span><span>HTML websites</span><span>Blog &amp; web copy</span><span>Excel</span>
+      <span>Content creation</span><span>Brand storytelling</span><span>Google Analytics 4</span><span>Claude</span><span>Python</span><span>HTML websites</span><span>Blog &amp; web copy</span><span>Excel</span>
+    </div>
+  </div>
+
+  <div class="wrap">
+    <div class="stats">
+      <div class="stat"><b>GA4</b><span>Google Analytics certified</span></div>
+      <div class="stat"><b>BSc</b><span>Data Science, Mumbai University, 2026</span></div>
+      <div class="stat"><b data-count="2" data-suffix="">2</b><span>tools built with AI for real users</span></div>
+      <div class="stat"><b data-count="4" data-suffix="">4</b><span>languages: English, Hindi, Gujarati, Marathi</span></div>
+    </div>
+  </div>
+
+  <section id="now" class="now">
+    <div class="wrap">
+      <div class="eyebrow">Right now · since Sept 2026</div>
+      <div class="now-grid">
+        <h2>Social Media Intern at <span class="mark">Hostoo Unlimited</span>.</h2>
+        <ul>
+          <li><b>Video editor</b><span>Cutting short-form and brand videos that keep people watching.</span></li>
+          <li><b>Content creator</b><span>Writing, shooting and posting content for Hostoo's social channels.</span></li>
+          <li><b>Creative strategist</b><span>Planning what we make and why, with growth as the goal.</span></li>
+          <li><b>Website work</b><span>Building and updating pages in HTML when the business needs it.</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="studio" class="studio">
+    <div class="wrap">
+      <div class="studio-grid">
+        <div>
+          <div class="eyebrow">Co-founder · My studio</div>
+          <h2>Cadre Studio</h2>
+          <p class="lede">A visual studio I co-founded for brands and businesses: strategy-first creative, fast delivery, and design built for the feed. 4+ clients served so far.</p>
+          <a class="btn-lemon" href="https://cadrestudio.in" target="_blank" rel="noopener">Visit cadrestudio.in ↗</a>
+        </div>
+        <ul class="services">
+          <li>Real estate visuals</li>
+          <li>Social media content</li>
+          <li>Brand identity</li>
+          <li>Product composites</li>
+          <li>Campaign design</li>
+          <li>Visual storytelling</li>
+          <li>Personal branding</li>
+          <li>Digital invites</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="work">
+    <div class="wrap">
+      <div class="sec-head">
+        <div><div class="eyebrow">01 · Selected work</div><h2>Work I&#39;ve shipped.</h2></div>
+        <p>A reel I edited, plus two projects where I used AI to move fast and ship something people could use the same day.</p>
+      </div>
+      <div class="feed">
+        <article class="post">
+          <div class="post-top"><div class="avatar">R</div>real estate client<small>2026</small></div>
+          <div class="visual v1"><span class="tag">Built with Claude</span><span>Every listing, every status, one sheet.</span></div>
+          <h3>Property Inventory System</h3>
+          <p>A spreadsheet inventory for a practising real estate agent to track listings and their status in one place. I used Claude to structure the logic and templates around the agent's daily workflow.</p>
+          <div class="metrics"><span><b>₹0</b> software cost</span><span><b>0</b> training needed</span><span><b>Day 1</b> adoption</span></div>
+        </article>
+        <article class="post">
+          <div class="post-top"><div class="avatar">F</div>final year project<small>2026</small></div>
+          <div class="visual v2"><span class="tag">Python · NLP</span><span>"What should I eat after leg day?"</span></div>
+          <h3>Fitness &amp; Nutrition Chatbot</h3>
+          <p>A real-time chatbot that gives personalised workout and nutrition advice from a user's goals, diet and activity level, using NLP, rule-based logic and decision trees.</p>
+          <div class="metrics"><span><b>Workouts</b></span><span><b>Calories</b></span><span><b>Meal plans</b></span><span><b>BMI</b></span></div>
+        </article>
+        <article class="post">
+          <div class="post-top"><div class="avatar">J</div>instagram<small>Reel</small></div>
+          <div class="embed"><iframe src="https://www.instagram.com/reel/DeZPNz6hqdC/embed" title="Jash's Instagram reel" loading="lazy" allowfullscreen scrolling="no"></iframe></div>
+          <h3>Latest reel</h3>
+          <p>A short-form reel I edited and put together. Hook, cuts and pacing all done by me.</p>
+          <div class="metrics"><a href="https://www.instagram.com/reel/DeZPNz6hqdC/" target="_blank" rel="noopener"><b>Watch on Instagram ↗</b></a></div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="prompts">
+    <div class="wrap">
+      <div class="lab">
+        <div class="sec-head">
+          <div><div class="eyebrow">02 · Prompt lab</div><h2>Prompts that do the heavy lifting.</h2></div>
+          <p>Prompts I use for marketing work and the kind of output they give. Pick one, copy it and try it yourself.</p>
+        </div>
+        <div class="tabs" role="tablist" id="tabs"></div>
+        <div class="pane" role="tabpanel" id="pane">
+          <div class="box">
+            <div class="box-h"><span class="eyebrow">Prompt</span><button class="copy" id="copy" type="button">Copy prompt</button></div>
+            <pre id="prompt-text"></pre>
+          </div>
+          <div class="box out">
+            <div class="box-h"><span class="eyebrow">Sample output</span><span class="eyebrow" id="model"></span></div>
+            <pre id="output-text"></pre>
+          </div>
+        </div>
+        <p class="why" id="why"></p>
+      </div>
+    </div>
+  </section>
+
+  <section id="kit">
+    <div class="wrap">
+      <div class="sec-head">
+        <div><div class="eyebrow">03 · Skills</div><h2>Half marketer, half data nerd.</h2></div>
+      </div>
+      <div class="kit">
+        <div><h3>Content &amp; creative</h3><div class="chips"><span>Video editing</span><span>Creative strategy</span><span>Content creation</span><span>Blog &amp; website content</span><span>Brand storytelling</span><span>Social media</span><span>AI prompting</span></div></div>
+        <div><h3>Data &amp; technical</h3><div class="chips"><span>HTML websites</span><span>Python</span><span>SQL</span><span>Excel</span><span>NLP</span><span>Data analysis</span><span>Data visualization</span><span>C / C++</span></div></div>
+        <div><h3>Certified</h3><div class="chips"><span>Google Analytics 4 · Google, 2024</span><span>Python &amp; SQL · HackerRank, 2026</span><span>GST using TallyPrime · Grade A</span><span>TallyEssential L1 · Grade A</span></div></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<section class="contact" id="contact">
+  <div class="wrap">
+    <div class="eyebrow" style="color:var(--ink)">04 · Contact</div>
+    <h2>Got a brand that needs a louder feed?</h2>
+    <div class="row">
+      <span class="email" id="email">sjash055@gmail.com</span>
+      <button class="btn" id="copy-email" type="button">Copy email</button>
+    </div>
+    <div class="socials">
+      <span>Mumbai, Maharashtra</span>
+      <a href="https://github.com/Jashhhcreates" target="_blank" rel="noopener">GitHub ↗</a>
+    </div>
+  </div>
+</section>
+<footer><div class="wrap"><span>© 2026 Jash Shah</span><span>Hand-coded in HTML, like I like it.</span></div></footer>
+<script>
+(() => {
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // Hero console: cycles through prompts after the first frame has shown the full text.
+  const lines = [
+    ["write a hook that stops the thumb in under 1 second", "→ \"You're scrolling past the one tip that fixes your reach.\""],
+    ["turn this product review into a 15s UGC script", "→ 3 scenes, 1 hook, 1 CTA. Ready to film."],
+    ["plan 14 days of posts for a café on a ₹0 budget", "→ Calendar ready: 6 reels, 5 carousels, 3 stories."],
+    ["rewrite this caption in Gen Z brand voice", "→ \"ok but this latte is giving main character\""]
+  ];
+  const t = document.getElementById('typed'), o = document.getElementById('typed-out');
+  if (!reduce) {
+    let i = 0;
+    const type = (txt, done) => { let n = 0; t.textContent = ''; const s = setInterval(() => { t.textContent = txt.slice(0, ++n); if (n >= txt.length) { clearInterval(s); done(); } }, 34); };
+    const next = () => { i = (i + 1) % lines.length; o.style.opacity = 0; type(lines[i][0], () => { o.textContent = lines[i][1]; o.style.opacity = 1; setTimeout(next, 3200); }); };
+    o.style.transition = 'opacity .3s';
+    setTimeout(next, 3500);
+  }
+
+  // Stat count-up when scrolled into view (final values already in the markup).
+  if (!reduce && 'IntersectionObserver' in window) {
+    const io = new IntersectionObserver(es => es.forEach(e => {
+      if (!e.isIntersecting) return; io.unobserve(e.target);
+      const el = e.target, end = parseFloat(el.dataset.count), suf = el.dataset.suffix, dec = String(end).includes('.') ? 1 : 0, t0 = performance.now();
+      const step = now => { const p = Math.min(1, (now - t0) / 1100), v = end * (1 - Math.pow(1 - p, 3)); el.textContent = v.toFixed(dec) + suf; if (p < 1) requestAnimationFrame(step); };
+      requestAnimationFrame(step);
+    }), { threshold: .6 });
+    document.querySelectorAll('[data-count]').forEach(el => io.observe(el));
+  }
+
+  // Prompt lab
+  const prompts = [
+    { name: "Hook generator", model: "ChatGPT / Claude",
+      prompt: `You are a short-form video strategist for <em>[brand]</em>, a <em>[niche]</em> brand talking to <em>[audience]</em>.
+
+Write 10 hooks for a Reel about <em>[topic]</em>.
+Rules:
+- Max 12 words each
+- Use 5 different angles: curiosity, pain point, contrarian, POV, number
+- No emojis, no "Hey guys"
+- Label each hook with its angle
+
+Then pick the 2 strongest and explain why in one line each.`,
+      output: `1. [Curiosity] The reason your skin looks dull isn't your moisturiser.
+2. [Pain point] Spent ₹3,000 on serums and still breaking out?
+3. [Contrarian] Stop double cleansing. Seriously.
+4. [POV] POV: your dermatologist finally explains it in 20 seconds.
+5. [Number] 3 ingredients you should never layer together.
+...
+
+Strongest: #3 (it picks a fight with a habit people already have) and #5 (the number promises a quick, saveable payoff).`,
+      why: `<b>Why it works:</b> forcing distinct angles stops the model from writing ten versions of the same hook, and the final ranking step gives me a shortlist to test.` },
+    { name: "Brand voice cloner", model: "Claude",
+      prompt: `Here are 5 past captions from <em>[brand]</em>:
+<em>[paste captions]</em>
+
+Step 1: Describe this brand's voice in 5 bullet points (tone, sentence length, slang, emoji use, what it never says).
+Step 2: Using only that voice, write 3 captions for <em>[new post]</em>.
+Step 3: Score each caption 1–10 for how on-brand it sounds and fix anything under 8.`,
+      output: `Voice:
+• Warm, a little cheeky
+• Short sentences. Lots of line breaks.
+• Light Hinglish ("yaar", "full vibe")
+• Max 1 emoji, always at the end
+• Never uses "elevate" or "curated"
+
+Caption 1 (9/10):
+New menu drop.
+Same cosy corner.
+Come hungry, yaar ☕
+...`,
+      why: `<b>Why it works:</b> making the model write down the voice rules first gives it a checklist to grade against, so the captions stay consistent across a whole month.` },
+    { name: "14-day content calendar", model: "ChatGPT",
+      prompt: `Act as a social media manager for <em>[business]</em> in <em>[city]</em>.
+Goal: <em>[goal, e.g. 500 new followers]</em>. Budget: ₹0.
+
+Build a 14-day Instagram calendar as a table with columns:
+Day | Format (Reel/Carousel/Story) | Content pillar | Hook | CTA
+
+Mix: 40% educational, 30% behind-the-scenes, 20% community, 10% promo.
+No two Reels on consecutive days.`,
+      output: `Day | Format   | Pillar   | Hook                               | CTA
+1   | Reel     | BTS      | "6am. Before the first customer…"  | Follow for day 2
+2   | Carousel | Educate  | "Espresso vs ristretto, explained" | Save this
+3   | Story    | Community| "Which mug should we stock?" poll  | Vote
+4   | Reel     | Educate  | "Why your home latte tastes flat"  | Comment 'FIX'
+...`,
+      why: `<b>Why it works:</b> a fixed pillar mix and format rules turn a vague "give me ideas" into a plan I can hand straight to a team.` },
+    { name: "Spreadsheet tool builder", model: "Claude",
+      prompt: `I'm building a spreadsheet tool for <em>[user, e.g. a real estate agent]</em> who is not technical.
+
+Their daily workflow: <em>[describe it]</em>
+What they need to track: <em>[fields, e.g. property, location, price, status, owner contact]</em>
+
+1. Propose the sheet structure: tabs, columns, data types.
+2. Add dropdowns for any status field and a formula-driven summary tab.
+3. Give me every formula exactly as I'd paste it into Excel.
+4. List 3 ways this could break and how the layout prevents it.
+
+Keep it free: no add-ins, no macros.`,
+      output: `Tabs: Listings | Summary | Lists
+
+Listings columns:
+ID | Property | Area | Type | Price (₹) | Status ▾ | Owner | Updated
+
+Status dropdown (Lists!A2:A5):
+Available · On hold · Under offer · Closed
+
+Summary:
+=COUNTIF(Listings!F:F,"Available")
+=SUMIFS(Listings!E:E,Listings!F:F,"Closed")
+...`,
+      why: `<b>Why it works:</b> this is the prompt pattern behind my property inventory project. Asking for failure points up front gave the client a tool they could use on day one without training.` }
+  ];
+  const tabs = document.getElementById('tabs'), P = document.getElementById('prompt-text'), O = document.getElementById('output-text'), W = document.getElementById('why'), M = document.getElementById('model');
+  let current = 0;
+  const show = i => {
+    current = i;
+    [...tabs.children].forEach((b, j) => { b.setAttribute('aria-selected', j === i); b.tabIndex = j === i ? 0 : -1; });
+    P.innerHTML = prompts[i].prompt; O.textContent = prompts[i].output; W.innerHTML = prompts[i].why; M.textContent = prompts[i].model;
+  };
+  prompts.forEach((p, i) => {
+    const b = document.createElement('button'); b.type = 'button'; b.role = 'tab'; b.id = 'tab-' + i; b.textContent = p.name;
+    b.onclick = () => show(i);
+    b.onkeydown = e => { if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') { const n = (i + (e.key === 'ArrowRight' ? 1 : prompts.length - 1)) % prompts.length; show(n); tabs.children[n].focus(); } };
+    tabs.appendChild(b);
+  });
+  show(0);
+
+  const copyText = (text, btn, label, fallbackEl) => {
+    const done = msg => { btn.textContent = msg; setTimeout(() => btn.textContent = label, 1600); };
+    try {
+      navigator.clipboard.writeText(text).then(() => done('Copied'), () => select(fallbackEl, done));
+    } catch { select(fallbackEl, done); }
+  };
+  const select = (el, done) => { const r = document.createRange(); r.selectNodeContents(el); const s = getSelection(); s.removeAllRanges(); s.addRange(r); done('Selected, press Ctrl+C'); };
+  document.getElementById('copy').onclick = e => copyText(P.textContent, e.currentTarget, 'Copy prompt', P);
+  const em = document.getElementById('email');
+  document.getElementById('copy-email').onclick = e => copyText(em.textContent, e.currentTarget, 'Copy email', em);
+})();
+</script>
+</body>
+</html>
