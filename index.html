@@ -178,11 +178,11 @@ section{padding-block:72px}
 
 /* travel board */
 .travel .sec-head p{color:var(--haze)}
-.board{position:relative;height:560px;border:2px dashed var(--line);border-radius:28px;overflow:hidden;touch-action:none}
+.board{position:relative;height:700px;border:2px dashed var(--line);border-radius:28px;overflow:hidden;touch-action:none}
 .board-hint{position:absolute;left:20px;bottom:16px;font:400 .75rem var(--mono);color:var(--haze)}
-.polaroid{position:absolute;width:220px;max-width:46%;background:var(--chalk);color:var(--ink);padding:10px 10px 0;border-radius:4px;box-shadow:0 14px 30px rgba(0,0,0,.35);cursor:grab;user-select:none;touch-action:none;margin:0;transition:box-shadow .2s}
+.polaroid{position:absolute;width:200px;max-width:44%;background:var(--chalk);color:var(--ink);padding:10px 10px 0;border-radius:4px;box-shadow:0 14px 30px rgba(0,0,0,.35);cursor:grab;user-select:none;touch-action:none;margin:0;transition:box-shadow .2s}
 .polaroid:active{cursor:grabbing;box-shadow:0 24px 44px rgba(0,0,0,.45)}
-.polaroid img,.polaroid .ph{display:block;width:100%;aspect-ratio:1;object-fit:cover;border-radius:2px;pointer-events:none}
+.polaroid img,.polaroid .ph{display:block;width:100%;aspect-ratio:4/5;object-fit:cover;border-radius:2px;pointer-events:none}
 .polaroid .ph{display:grid;place-items:center;text-align:center;padding:12px;font:700 1.05rem var(--display);letter-spacing:-.01em;color:var(--chalk)}
 .ph.a{background:linear-gradient(160deg,var(--lemon),var(--pink))}
 .ph.b{background:linear-gradient(200deg,var(--cobalt-deep),var(--pink))}
@@ -208,6 +208,26 @@ section{padding-block:72px}
 @media (max-width:420px){.phones{gap:14px}.sound{top:12px;right:12px;padding:5px 9px}}
 .sound{position:absolute;top:18px;right:18px;font:600 .75rem var(--mono);background:var(--chalk);color:var(--ink);border:0;border-radius:99px;padding:6px 12px;cursor:pointer}
 .sound[aria-pressed="true"]{background:var(--lemon)}
+
+/* portrait */
+.portrait{margin:28px 0 0;width:170px;background:var(--chalk);padding:8px 8px 0;border-radius:4px;transform:rotate(3deg);box-shadow:8px 8px 0 var(--pink)}
+.portrait img{display:block;width:100%;aspect-ratio:4/5;object-fit:cover;object-position:50% 25%;border-radius:2px}
+.portrait figcaption{font:600 .85rem var(--display);color:var(--ink);text-align:center;padding:8px 0 10px}
+@media (min-width:1100px){
+  .portrait{position:absolute;right:max(16px,2vw);top:56px;width:220px;margin:0;z-index:1}
+  .hero .eyebrow,.hero h1{padding-right:250px}
+  .hero h1{font-size:clamp(3rem,9vw,8.2rem)}
+  .ring{right:calc(max(16px,2vw) + 150px);top:14px;z-index:2}
+  .hero-row{margin-top:84px}
+}
+
+/* contact photo */
+.contact-grid{display:grid;grid-template-columns:1.4fr 1fr;gap:48px;align-items:center}
+.contact-copy{min-width:0}
+.contact-photo{margin:0;background:var(--chalk);padding:10px 10px 0;border-radius:4px;transform:rotate(-3deg);box-shadow:10px 10px 0 var(--ink);max-width:360px;justify-self:end}
+.contact-photo img{display:block;width:100%;aspect-ratio:4/5;object-fit:cover;border-radius:2px}
+.contact-photo figcaption{font:600 .95rem var(--display);color:var(--ink);text-align:center;padding:10px 4px 12px}
+@media (max-width:820px){.contact-grid{grid-template-columns:1fr}.contact-photo{justify-self:center;max-width:280px}}
 
 /* contact */
 .contact{background:var(--lemon);color:var(--ink)}
@@ -240,6 +260,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;
       <li><a href="#work">Work</a></li>
       <li><a href="#prompts">Prompt lab</a></li>
       <li><a href="#kit">Skills</a></li>
+      <li><a href="#travel">Travel</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul>
     <div class="status"><i></i> social media intern @ Host2Unlimited</div>
@@ -259,6 +280,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;
         <div class="out" id="typed-out">→ "You're scrolling past the one tip that fixes your reach."</div>
       </div>
     </div>
+    <figure class="portrait"><img src="media/photos/p3.jpg" alt="Jash Shah"><figcaption>hi, that's me</figcaption></figure>
     <div class="stickers" aria-label="Fun facts">
       <span class="sticker">Mumbai-made</span>
       <span class="sticker">Edits at 2am</span>
@@ -404,18 +426,23 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;
   </section>
 </main>
 
-<section id="travel" class="travel" hidden>
+<section id="travel" class="travel">
   <div class="wrap">
     <div class="sec-head">
       <div><div class="eyebrow">Off the clock</div><h2>When I'm not editing, I'm travelling.</h2></div>
-      <p>New places are where most of my content ideas start. Here are a few shots from the road. Drag them around.</p>
+      <p>Manali, Uttarakhand, Spiti Valley, Kasol and more. New places are where most of my content ideas start. All shot on my phone. Drag them around.</p>
     </div>
     <div class="board" id="board">
-      <figure class="polaroid" style="left:3%;top:40px;transform:rotate(-6deg)"><span class="tape"></span><div class="ph a">photo 1</div><figcaption>Somewhere new</figcaption></figure>
-      <figure class="polaroid" style="left:24%;top:170px;transform:rotate(4deg)"><span class="tape"></span><div class="ph b">photo 2</div><figcaption>Golden hour</figcaption></figure>
-      <figure class="polaroid" style="left:45%;top:30px;transform:rotate(-2deg)"><span class="tape"></span><div class="ph c">photo 3</div><figcaption>Road trip</figcaption></figure>
-      <figure class="polaroid" style="left:64%;top:190px;transform:rotate(7deg)"><span class="tape"></span><div class="ph d">photo 4</div><figcaption>The view</figcaption></figure>
-      <figure class="polaroid" style="left:78%;top:20px;transform:rotate(-5deg)"><span class="tape"></span><div class="ph e">photo 5</div><figcaption>Next stop?</figcaption></figure>
+      <figure class="polaroid" style="left:1%;top:30px;transform:rotate(-6deg)"><span class="tape"></span><img src="media/photos/p2.jpg" alt="Manali" loading="lazy"><figcaption>Manali</figcaption></figure>
+      <figure class="polaroid" style="left:20%;top:60px;transform:rotate(4deg)"><span class="tape"></span><img src="media/photos/p4.jpg" alt="Spiti Valley" loading="lazy"><figcaption>Spiti Valley</figcaption></figure>
+      <figure class="polaroid" style="left:39%;top:20px;transform:rotate(-3deg)"><span class="tape"></span><img src="media/photos/p5.jpg" alt="Spiti, on foot" loading="lazy"><figcaption>Spiti, on foot</figcaption></figure>
+      <figure class="polaroid" style="left:58%;top:55px;transform:rotate(6deg)"><span class="tape"></span><img src="media/photos/p8.jpg" alt="Mountain sunset" loading="lazy"><figcaption>Mountain sunset</figcaption></figure>
+      <figure class="polaroid" style="left:77%;top:25px;transform:rotate(-4deg)"><span class="tape"></span><img src="media/photos/p6.jpg" alt="Pines at dusk" loading="lazy"><figcaption>Pines at dusk</figcaption></figure>
+      <figure class="polaroid" style="left:5%;top:350px;transform:rotate(3deg)"><span class="tape"></span><img src="media/photos/p11.jpg" alt="Hill morning" loading="lazy"><figcaption>Hill morning</figcaption></figure>
+      <figure class="polaroid" style="left:24%;top:380px;transform:rotate(-5deg)"><span class="tape"></span><img src="media/photos/p7.jpg" alt="Lake sunset" loading="lazy"><figcaption>Lake sunset</figcaption></figure>
+      <figure class="polaroid" style="left:43%;top:340px;transform:rotate(2deg)"><span class="tape"></span><img src="media/photos/p9.jpg" alt="Snow peaks" loading="lazy"><figcaption>Snow peaks</figcaption></figure>
+      <figure class="polaroid" style="left:61%;top:375px;transform:rotate(-2deg)"><span class="tape"></span><img src="media/photos/p12.jpg" alt="Pink skies" loading="lazy"><figcaption>Pink skies</figcaption></figure>
+      <figure class="polaroid" style="left:79%;top:345px;transform:rotate(5deg)"><span class="tape"></span><img src="media/photos/p10.jpg" alt="Roadside coconuts" loading="lazy"><figcaption>Roadside coconuts</figcaption></figure>
       <span class="board-hint">drag the photos ↔</span>
     </div>
   </div>
@@ -424,6 +451,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;
 <section class="contact" id="contact">
   <div class="wrap">
     <div class="eyebrow" style="color:var(--ink)">04 · Contact</div>
+    <div class="contact-grid"><div class="contact-copy">
     <h2>Got a brand that needs a louder feed?</h2>
     <div class="row">
       <span class="email" id="email">sjash055@gmail.com</span>
@@ -432,6 +460,9 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;
     <div class="socials">
       <span>Mumbai, Maharashtra</span>
       <a href="https://github.com/Jashhhcreates" target="_blank" rel="noopener">GitHub ↗</a>
+    </div>
+    </div>
+    <figure class="contact-photo"><img src="media/photos/p1.jpg" alt="Jash by a lake at sunset" loading="lazy"><figcaption>Let's make something worth the golden hour.</figcaption></figure>
     </div>
   </div>
 </section>
