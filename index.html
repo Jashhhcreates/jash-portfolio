@@ -198,9 +198,14 @@ section{padding-block:72px}
 
 /* phone video */
 .now-left{display:flex;flex-direction:column;gap:28px;min-width:0}
-.phone{position:relative;margin:0;width:min(280px,100%);transform:rotate(-2deg)}
+.phones{display:grid;grid-template-columns:1fr 1fr;gap:24px;max-width:540px}
+.phone{position:relative;margin:0;min-width:0;transform:rotate(-2deg)}
+.phone.bts{transform:rotate(2.5deg);margin-top:48px}
+.phone.bts video{box-shadow:10px 10px 0 var(--lemon)}
+.phone.bts .sound{top:58px}
 .phone video{display:block;width:100%;aspect-ratio:9/16;object-fit:cover;border-radius:26px;border:8px solid var(--ink);background:var(--ink);box-shadow:10px 10px 0 var(--pink)}
-.phone figcaption{margin-top:18px;font-size:.9rem;color:var(--haze)}
+.phone figcaption{margin-top:18px;font-size:.88rem;color:var(--haze)}
+@media (max-width:420px){.phones{gap:14px}.sound{top:12px;right:12px;padding:5px 9px}}
 .sound{position:absolute;top:18px;right:18px;font:600 .75rem var(--mono);background:var(--chalk);color:var(--ink);border:0;border-radius:99px;padding:6px 12px;cursor:pointer}
 .sound[aria-pressed="true"]{background:var(--lemon)}
 
@@ -284,11 +289,18 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;
       <div class="now-grid">
         <div class="now-left">
           <h2>Social Media Intern at <span class="mark">Host2Unlimited</span>.</h2>
-          <figure class="phone">
-            <video id="reel" src="media/host2unlimited-reel.mp4" poster="media/host2unlimited-reel.jpg" muted loop playsinline autoplay preload="metadata"></video>
-            <button type="button" class="sound" id="sound" aria-pressed="false">Sound on</button>
-            <figcaption>On camera and in the edit: a reel I made for Host2Unlimited.</figcaption>
-          </figure>
+          <div class="phones">
+            <figure class="phone">
+              <video src="media/host2unlimited-reel.mp4" poster="media/host2unlimited-reel.jpg" muted loop playsinline autoplay preload="metadata"></video>
+              <button type="button" class="sound" aria-pressed="false">Sound on</button>
+              <figcaption>On camera and in the edit: a reel I made for Host2Unlimited.</figcaption>
+            </figure>
+            <figure class="phone bts">
+              <video src="media/bts-shoot.mp4" poster="media/bts-shoot.jpg" muted loop playsinline autoplay preload="metadata"></video>
+              <button type="button" class="sound" aria-pressed="false">Sound on</button>
+              <figcaption>Behind the camera: shooting on the ground, phone in hand.</figcaption>
+            </figure>
+          </div>
         </div>
         <ul>
           <li><b>Video editor</b><span>Cutting short-form and brand videos that keep people watching.</span></li>
@@ -566,9 +578,16 @@ Summary:
   document.getElementById('copy-email').onclick = e => { copyText(em.textContent, e.currentTarget, 'Copy email', em); confetti(e.clientX, e.clientY); };
 
   // Reel: muted autoplay, viewer can turn sound on.
-  const reel = document.getElementById('reel'), snd = document.getElementById('sound');
-  snd.onclick = () => { reel.muted = !reel.muted; if (!reel.muted) reel.play().catch(() => {}); snd.setAttribute('aria-pressed', !reel.muted); snd.textContent = reel.muted ? 'Sound on' : 'Sound off'; };
-  if (reduce) { reel.removeAttribute('autoplay'); reel.pause(); }
+  const vids = [...document.querySelectorAll('.phone video')];
+  document.querySelectorAll('.phone').forEach(ph => {
+    const v = ph.querySelector('video'), snd = ph.querySelector('.sound');
+    snd.onclick = () => {
+      const on = v.muted;
+      vids.forEach(o => { o.muted = true; o.parentNode.querySelector('.sound').setAttribute('aria-pressed', 'false'); o.parentNode.querySelector('.sound').textContent = 'Sound on'; });
+      if (on) { v.muted = false; v.play().catch(() => {}); snd.setAttribute('aria-pressed', 'true'); snd.textContent = 'Sound off'; }
+    };
+    if (reduce) { v.removeAttribute('autoplay'); v.pause(); }
+  });
 
   // Fun: click the highlighted word to shuffle it (with confetti).
   const words = ['lands', 'pops', 'slaps', 'sells', 'trends', 'hits'];
