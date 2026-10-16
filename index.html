@@ -3,8 +3,26 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Jash Portfolio</title>
+<title>Jash Shah · Video editor & content creator</title>
 <meta name="description" content="Jash Shah: video editor, content creator, creative strategist and AI prompter in Mumbai.">
+<link rel="icon" href="favicon.ico" sizes="48x48">
+<link rel="icon" type="image/png" sizes="32x32" href="media/icons/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="media/icons/favicon-16.png">
+<link rel="apple-touch-icon" href="media/icons/icon-180.png">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#3155D9">
+<meta name="apple-mobile-web-app-title" content="Jash">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Jash Shah">
+<meta property="og:title" content="Jash Shah · Video editor & content creator">
+<meta property="og:description" content="Video editor, content creator and creative strategist in Mumbai. See my work, reels and travel shots.">
+<meta property="og:url" content="https://jashhhcreates.github.io/jash-portfolio/">
+<meta property="og:image" content="https://jashhhcreates.github.io/jash-portfolio/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Jash Shah: video editor, content creator and creative strategist in Mumbai">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://jashhhcreates.github.io/jash-portfolio/og.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap">
@@ -43,7 +61,12 @@ a{color:inherit}
 header.nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:9;background:color-mix(in srgb,var(--cobalt) 88%,transparent);backdrop-filter:blur(8px)}
 .nav .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-block:14px}
 .logo{font-family:var(--display);font-weight:800;font-size:1.35rem;letter-spacing:-.02em;text-decoration:none}
-.logo span{color:var(--lemon)}
+.logo{display:inline-flex;align-items:center;gap:10px}
+.logo-word span{color:var(--lemon)}
+.logo-mark{width:34px;height:34px;border-radius:30% 30% 30% 9%;background:var(--chalk);display:grid;place-items:center;position:relative;box-shadow:3px 3px 0 var(--ink);transition:rotate .3s cubic-bezier(.3,1.6,.5,1),scale .3s}
+.logo-mark b{font:800 29px/1 var(--display);color:var(--cobalt);letter-spacing:-.04em;translate:-6% -4%}
+.logo-mark i{position:absolute;width:6px;height:6px;border-radius:50%;background:var(--ink);right:17%;bottom:17%}
+.logo:hover .logo-mark{rotate:-10deg;scale:1.08}
 .nav ul{display:flex;gap:22px;list-style:none;margin:0;padding:0;font-size:.95rem}
 .nav ul a{text-decoration:none;opacity:.85}
 .nav ul a:hover{opacity:1;text-decoration:underline;text-underline-offset:4px}
@@ -214,7 +237,7 @@ section{padding-block:72px}
 
 /* playful layer */
 .progress{position:fixed;top:0;left:0;height:4px;width:100%;z-index:30;transform-origin:0 50%;transform:scaleX(var(--p,0));background:linear-gradient(90deg,var(--lemon),var(--pink),var(--mint))}
-.logo span{display:inline-block;animation:hop 1.8s cubic-bezier(.3,1.6,.5,1) infinite}
+.logo-word span{display:inline-block;animation:hop 1.8s cubic-bezier(.3,1.6,.5,1) infinite}
 @keyframes hop{0%,60%,100%{transform:none}30%{transform:translateY(-7px) scale(1.2)}}
 .logo{cursor:pointer}
 .doodles{position:absolute;inset:0;pointer-events:none;z-index:0}
@@ -271,6 +294,8 @@ section{padding-block:72px}
 .anim .rv.in{opacity:1;translate:0 0}
 .anim .rv-l{--fx:-70px}
 .anim .rv-r{--fx:70px}
+@media (max-width:820px){.anim .rv-l,.anim .rv-r{--fx:0px}}
+html{overflow-x:clip}
 .anim .rv-drop{opacity:0;scale:1.35;transition:opacity .5s ease,scale .7s cubic-bezier(.3,1.5,.5,1);transition-delay:var(--d,0ms)}
 .anim .rv-drop.in{opacity:1;scale:1}
 .anim .sec-head:not(.in) .squig::after,.anim .contact-copy:not(.in) .squig::after{right:100%}
@@ -308,6 +333,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;
 .hero h1,.hero-row{animation:rise .8s cubic-bezier(.2,.8,.2,1) both}
 .hero-row{animation-delay:.12s}
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}html{scroll-behavior:auto}}
+@media (max-width:520px){.status{display:none}.logo{font-size:1.2rem;gap:8px}.logo-mark{width:30px;height:30px}.logo-mark b{font-size:25px}}
 </style>
 </head>
 <body>
@@ -315,7 +341,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;
 <div class="progress" aria-hidden="true"></div>
 <header class="nav">
   <div class="wrap">
-    <a class="logo" href="#top">jash<span>.</span></a>
+    <a class="logo" href="#top" aria-label="Jash Shah, back to top"><span class="logo-mark" aria-hidden="true"><b>j</b><i></i></span><span class="logo-word">jash<span>.</span></span></a>
     <ul>
       <li><a href="#now">Now</a></li>
       <li><a href="#studio">Studio</a></li>
