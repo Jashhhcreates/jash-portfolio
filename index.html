@@ -218,7 +218,7 @@ section{padding-block:72px}
 @keyframes hop{0%,60%,100%{transform:none}30%{transform:translateY(-7px) scale(1.2)}}
 .logo{cursor:pointer}
 .doodles{position:absolute;inset:0;pointer-events:none;z-index:0}
-.hero>*:not(.doodles):not(.portrait):not(.ring){position:relative;z-index:1}
+.hero>*:not(.doodles):not(.portrait):not(.ring):not(.hero-bg){position:relative;z-index:1}
 .dd{position:absolute;transform:translate(calc(var(--mx,0)*var(--k)),calc(var(--my,0)*var(--k)));transition:transform .4s ease-out}
 .dd{animation:bob 5s ease-in-out infinite}
 .d2{width:110px;left:-1%;top:330px;--k:-14px}
@@ -254,6 +254,32 @@ section{padding-block:72px}
 .wave{display:block;width:100%;height:40px;margin-bottom:-1px;background:var(--cobalt)}
 .spark{position:fixed;pointer-events:none;z-index:40;font-size:14px;line-height:1;translate:-50% -50%}
 .btn-lemon:active,.btn:active,.sticker:active{transform:scale(.94)}
+
+/* motion layer: scroll reveals, headline pop, hero graphics.
+   Hidden states only apply once JS adds .anim to <html>, so the page is fully visible without JS. */
+.hero-bg{position:absolute;inset:-40px 0 0;pointer-events:none;z-index:0;overflow:hidden}
+.hero-bg .grid{position:absolute;inset:0;background-image:radial-gradient(color-mix(in srgb,var(--chalk) 28%,transparent) 1.4px,transparent 1.6px);background-size:26px 26px;-webkit-mask-image:radial-gradient(ellipse 70% 60% at 30% 40%,#000 20%,transparent 75%);mask-image:radial-gradient(ellipse 70% 60% at 30% 40%,#000 20%,transparent 75%);animation:drift 18s linear infinite}
+@keyframes drift{to{background-position:26px 52px}}
+.hero-bg .orbit{position:absolute;width:520px;height:520px;left:-170px;top:-140px;animation:spin 40s linear infinite;opacity:.55}
+.hero-bg .orbit2{position:absolute;width:300px;height:300px;right:12%;bottom:-120px;animation:spin 26s linear infinite reverse;opacity:.45}
+.hero-bg .blob{position:absolute;width:420px;height:420px;right:18%;top:20%;border-radius:50%;background:radial-gradient(circle,color-mix(in srgb,var(--pink) 45%,transparent),transparent 65%);filter:blur(10px);animation:float 9s ease-in-out infinite}
+@keyframes float{50%{translate:-40px 30px;scale:1.1}}
+.w{display:inline-block}
+.anim .hero h1 .w{animation:pop .75s cubic-bezier(.2,1.4,.4,1) both;animation-delay:calc(var(--i)*90ms + 150ms)}
+@keyframes pop{from{opacity:0;translate:0 .5em;rotate:8deg}to{opacity:1;translate:0 0;rotate:0deg}}
+.anim .rv{opacity:0;translate:var(--fx,0) 46px;transition:opacity .7s ease,translate .9s cubic-bezier(.2,.9,.25,1);transition-delay:var(--d,0ms)}
+.anim .rv.in{opacity:1;translate:0 0}
+.anim .rv-l{--fx:-70px}
+.anim .rv-r{--fx:70px}
+.anim .rv-drop{opacity:0;scale:1.35;transition:opacity .5s ease,scale .7s cubic-bezier(.3,1.5,.5,1);transition-delay:var(--d,0ms)}
+.anim .rv-drop.in{opacity:1;scale:1}
+.anim .sec-head:not(.in) .squig::after,.anim .contact-copy:not(.in) .squig::after{right:100%}
+.squig::after{transition:right 1s cubic-bezier(.6,0,.2,1) .45s}
+.anim .stat.rv b{display:inline-block}
+.stat.in b{animation:bump .6s cubic-bezier(.3,1.6,.5,1) both;animation-delay:calc(var(--d,0ms) + 250ms)}
+@keyframes bump{0%{scale:.6}100%{scale:1}}
+.tapes .marquee{transform:rotate(-2deg) skewX(var(--sk,0deg));transition:transform .35s ease-out}
+.tapes .marquee.alt{transform:rotate(1.6deg) skewX(var(--sk,0deg))}
 
 /* contact */
 .contact{background:var(--lemon);color:var(--ink)}
@@ -305,6 +331,12 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;
 
 <main id="top">
   <div class="wrap hero">
+    <div class="hero-bg" aria-hidden="true">
+      <div class="grid"></div>
+      <div class="blob"></div>
+      <svg class="orbit" viewBox="0 0 520 520"><circle cx="260" cy="260" r="250" fill="none" stroke="var(--chalk)" stroke-width="2" stroke-dasharray="4 14" stroke-linecap="round"/><circle cx="260" cy="10" r="9" fill="var(--chalk)"/><circle cx="510" cy="260" r="6" fill="var(--pink)"/></svg>
+      <svg class="orbit2" viewBox="0 0 300 300"><circle cx="150" cy="150" r="140" fill="none" stroke="var(--pink)" stroke-width="2" stroke-dasharray="24 12"/><circle cx="150" cy="10" r="8" fill="var(--ink)"/></svg>
+    </div>
     <svg class="ring" viewBox="0 0 150 150" aria-hidden="true"><defs><path id="circ" d="M75,75 m-58,0 a58,58 0 1,1 116,0 a58,58 0 1,1 -116,0"/></defs><text><textPath href="#circ" textLength="358" lengthAdjust="spacing">edit · create · prompt · repeat · </textPath></text><circle class="dot" cx="75" cy="75" r="9"/></svg>
     <div class="eyebrow">Jash Shah · Video editor · Content creator · Creative strategist · AI prompter</div>
     <h1>Data in. Content that <button type="button" class="stop mark" id="shuffle" title="Click me" style="font:inherit;border:0;letter-spacing:inherit">lands</button> out.</h1>
@@ -503,6 +535,39 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;
 <script>
 (() => {
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // Motion layer: headline words pop in, sections reveal on scroll, tapes lean with scroll speed.
+  if (!reduce && 'IntersectionObserver' in window) {
+    const h1 = document.querySelector('.hero h1');
+    let wi = 0;
+    [...h1.childNodes].forEach(n => {
+      if (n.nodeType === 3) {
+        const frag = document.createDocumentFragment();
+        n.textContent.split(/(\s+)/).forEach(part => {
+          if (!part) return;
+          if (/^\s+$/.test(part)) { frag.appendChild(document.createTextNode(part)); return; }
+          const s = document.createElement('span'); s.className = 'w'; s.style.setProperty('--i', wi++); s.textContent = part; frag.appendChild(s);
+        });
+        n.replaceWith(frag);
+      } else { n.classList.add('w'); n.style.setProperty('--i', wi++); }
+    });
+    const mark = (sel, cls, step) => document.querySelectorAll(sel).forEach((el, i) => { el.classList.add('rv', ...(cls ? cls.split(' ') : [])); if (step) el.style.setProperty('--d', (i % 4) * step + 'ms'); });
+    mark('.sec-head'); mark('.stat', '', 110); mark('.post', '', 130);
+    mark('.now h2'); mark('.now li', '', 90); mark('.phone:not(.bts)', 'rv-l'); mark('.phone.bts', 'rv-r');
+    mark('.studio-grid > div', 'rv-l'); mark('.services li', '', 70); mark('.kit > div', '', 120);
+    mark('.contact-copy', 'rv-l'); mark('.contact-photo', 'rv-r'); mark('.now > .wrap > .eyebrow');
+    document.querySelectorAll('.polaroid').forEach((el, i) => { el.classList.add('rv-drop'); el.style.setProperty('--d', (i * 70) + 'ms'); });
+    document.documentElement.classList.add('anim');
+    const ro = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); ro.unobserve(e.target); } }), { threshold: .12, rootMargin: '0px 0px -6% 0px' });
+    document.querySelectorAll('.rv,.rv-drop').forEach(el => ro.observe(el));
+    const tapes = document.querySelectorAll('.marquee');
+    let lastY = scrollY, sk = 0, raf = 0;
+    addEventListener('scroll', () => {
+      const v = scrollY - lastY; lastY = scrollY; sk = Math.max(-8, Math.min(8, v * .4));
+      tapes.forEach(m => m.style.setProperty('--sk', sk + 'deg'));
+      clearTimeout(raf); raf = setTimeout(() => tapes.forEach(m => m.style.setProperty('--sk', '0deg')), 120);
+    }, { passive: true });
+  }
 
   // Hero console: cycles through prompts after the first frame has shown the full text.
   const lines = [
