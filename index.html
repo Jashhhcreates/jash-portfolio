@@ -29,7 +29,7 @@
 }
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
-body{background:var(--cobalt);color:var(--chalk);font-family:var(--body);font-size:16px;line-height:1.55;overflow-x:hidden}
+body{margin:0;background:var(--cobalt);color:var(--chalk);font-family:var(--body);font-size:16px;line-height:1.55;overflow-x:hidden}
 body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--cobalt)}
 a{color:inherit}
 :focus-visible{outline:3px solid var(--lemon);outline-offset:3px;border-radius:4px}
@@ -196,6 +196,14 @@ section{padding-block:72px}
 /* confetti */
 .confetti{position:fixed;width:9px;height:14px;pointer-events:none;z-index:50;border-radius:2px}
 
+/* phone video */
+.now-left{display:flex;flex-direction:column;gap:28px;min-width:0}
+.phone{position:relative;margin:0;width:min(280px,100%);transform:rotate(-2deg)}
+.phone video{display:block;width:100%;aspect-ratio:9/16;object-fit:cover;border-radius:26px;border:8px solid var(--ink);background:var(--ink);box-shadow:10px 10px 0 var(--pink)}
+.phone figcaption{margin-top:18px;font-size:.9rem;color:var(--haze)}
+.sound{position:absolute;top:18px;right:18px;font:600 .75rem var(--mono);background:var(--chalk);color:var(--ink);border:0;border-radius:99px;padding:6px 12px;cursor:pointer}
+.sound[aria-pressed="true"]{background:var(--lemon)}
+
 /* contact */
 .contact{background:var(--lemon);color:var(--ink)}
 .contact .wrap{padding-block:80px}
@@ -274,7 +282,14 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;
     <div class="wrap">
       <div class="eyebrow">Right now · since Sept 2026</div>
       <div class="now-grid">
-        <h2>Social Media Intern at <span class="mark">Host2Unlimited</span>.</h2>
+        <div class="now-left">
+          <h2>Social Media Intern at <span class="mark">Host2Unlimited</span>.</h2>
+          <figure class="phone">
+            <video id="reel" src="media/host2unlimited-reel.mp4" poster="media/host2unlimited-reel.jpg" muted loop playsinline autoplay preload="metadata"></video>
+            <button type="button" class="sound" id="sound" aria-pressed="false">Sound on</button>
+            <figcaption>On camera and in the edit: a reel I made for Host2Unlimited.</figcaption>
+          </figure>
+        </div>
         <ul>
           <li><b>Video editor</b><span>Cutting short-form and brand videos that keep people watching.</span></li>
           <li><b>Content creator</b><span>Writing, shooting and posting content for Host2Unlimited's social channels.</span></li>
@@ -549,6 +564,11 @@ Summary:
   document.getElementById('copy').onclick = e => copyText(P.textContent, e.currentTarget, 'Copy prompt', P);
   const em = document.getElementById('email');
   document.getElementById('copy-email').onclick = e => { copyText(em.textContent, e.currentTarget, 'Copy email', em); confetti(e.clientX, e.clientY); };
+
+  // Reel: muted autoplay, viewer can turn sound on.
+  const reel = document.getElementById('reel'), snd = document.getElementById('sound');
+  snd.onclick = () => { reel.muted = !reel.muted; if (!reel.muted) reel.play().catch(() => {}); snd.setAttribute('aria-pressed', !reel.muted); snd.textContent = reel.muted ? 'Sound on' : 'Sound off'; };
+  if (reduce) { reel.removeAttribute('autoplay'); reel.pause(); }
 
   // Fun: click the highlighted word to shuffle it (with confetti).
   const words = ['lands', 'pops', 'slaps', 'sells', 'trends', 'hits'];
