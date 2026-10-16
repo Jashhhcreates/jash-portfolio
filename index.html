@@ -9,14 +9,17 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap">
 <style>
-/* Layout: a cobalt "feed" you scroll like a phone — giant type hero, post-card grid, prompt console, contact slab. Single deliberate look (cobalt + chalk + lemon highlighter). */
+/* Layout: a "feed" you scroll like a phone — giant type hero, post-card grid, prompt console, travel board, contact slab.
+   Theme "Sunset": plum ground, cream type, coral highlighter, hot-pink stickers. Token names are historical; values set the theme. */
 :root{
-  --cobalt:#1A2CF0;
-  --cobalt-deep:#0E1AA8;
-  --chalk:#F4F2FF;
-  --haze:#C7CBFF;
-  --lemon:#FFE45C;
-  --ink:#090D36;
+  --cobalt:#3A1036;
+  --cobalt-deep:#2B0A28;
+  --chalk:#FFF1E4;
+  --haze:#F3BFAE;
+  --lemon:#FF8A4C;
+  --ink:#1F0619;
+  --pink:#FF4F8B;
+  --line:#5A2652;
   --display:"Bricolage Grotesque", "Arial Black", system-ui, sans-serif;
   --body:"Instrument Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
   --mono:"JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
@@ -104,7 +107,7 @@ section{padding-block:72px}
 .embed{border-radius:14px;overflow:hidden;background:var(--ink);aspect-ratio:9/16;max-width:100%}
 .embed iframe{width:100%;height:100%;border:0;display:block}
 .post h3{font-family:var(--display);font-size:1.2rem;margin:2px 4px 0;letter-spacing:-.01em}
-.post p{margin:0 4px;font-size:.92rem;color:#3A3F6E}
+.post p{margin:0 4px;font-size:.92rem;color:#5B3A50}
 .metrics{display:flex;gap:14px;flex-wrap:wrap;margin:0 4px 4px;font-family:var(--mono);font-size:.78rem;font-variant-numeric:tabular-nums}
 .metrics b{font-weight:600}
 @media (max-width:900px){.feed{grid-template-columns:1fr 1fr}}
@@ -118,7 +121,7 @@ section{padding-block:72px}
 .tabs button:hover{border-color:var(--lemon)}
 .tabs button[aria-selected="true"]{background:var(--lemon);color:var(--ink);border-color:var(--lemon)}
 .pane{display:grid;grid-template-columns:1fr 1fr;gap:18px}
-.box{border:1.5px solid #2A2F6B;border-radius:16px;padding:18px;min-width:0;display:flex;flex-direction:column;gap:12px}
+.box{border:1.5px solid var(--line);border-radius:16px;padding:18px;min-width:0;display:flex;flex-direction:column;gap:12px}
 .box-h{display:flex;justify-content:space-between;align-items:center;gap:10px}
 .box pre{margin:0;white-space:pre-wrap;word-break:break-word;font-family:var(--mono);font-size:.84rem;line-height:1.65;color:var(--chalk)}
 .box.out pre{color:var(--haze)}
@@ -157,6 +160,41 @@ section{padding-block:72px}
 .services li:nth-child(odd){border-right:1.5px solid var(--haze);padding-right:12px}
 .services li:nth-child(even){padding-left:16px}
 @media (max-width:820px){.studio-grid{grid-template-columns:1fr}}
+
+/* fun: hero sticker ring + stickers */
+.hero{position:relative}
+.ring{position:absolute;right:max(16px,4vw);top:28px;width:150px;height:150px;animation:spin 14s linear infinite;pointer-events:none}
+.ring text{font:600 10.5px var(--mono);letter-spacing:.22em;fill:var(--chalk);text-transform:uppercase}
+.ring .dot{fill:var(--pink)}
+@keyframes spin{to{transform:rotate(360deg)}}
+.stickers{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}
+.sticker{font:700 .85rem var(--body);padding:8px 14px;border-radius:99px;background:var(--pink);color:var(--ink);transform:rotate(var(--r,-3deg));box-shadow:3px 3px 0 var(--ink);cursor:grab;user-select:none;transition:transform .25s cubic-bezier(.2,.9,.3,1.4)}
+.sticker:nth-child(2){background:var(--chalk);--r:2deg}
+.sticker:nth-child(3){background:var(--lemon);--r:-1deg}
+.sticker:nth-child(4){background:var(--haze);--r:3deg}
+.sticker:hover{transform:rotate(0) scale(1.12)}
+.stop{cursor:pointer}
+@media (max-width:820px){.ring{display:none}}
+
+/* travel board */
+.travel .sec-head p{color:var(--haze)}
+.board{position:relative;height:560px;border:2px dashed var(--line);border-radius:28px;overflow:hidden;touch-action:none}
+.board-hint{position:absolute;left:20px;bottom:16px;font:400 .75rem var(--mono);color:var(--haze)}
+.polaroid{position:absolute;width:220px;max-width:46%;background:var(--chalk);color:var(--ink);padding:10px 10px 0;border-radius:4px;box-shadow:0 14px 30px rgba(0,0,0,.35);cursor:grab;user-select:none;touch-action:none;margin:0;transition:box-shadow .2s}
+.polaroid:active{cursor:grabbing;box-shadow:0 24px 44px rgba(0,0,0,.45)}
+.polaroid img,.polaroid .ph{display:block;width:100%;aspect-ratio:1;object-fit:cover;border-radius:2px;pointer-events:none}
+.polaroid .ph{display:grid;place-items:center;text-align:center;padding:12px;font:700 1.05rem var(--display);letter-spacing:-.01em;color:var(--chalk)}
+.ph.a{background:linear-gradient(160deg,var(--lemon),var(--pink))}
+.ph.b{background:linear-gradient(200deg,var(--cobalt-deep),var(--pink))}
+.ph.c{background:linear-gradient(140deg,var(--pink),var(--cobalt))}
+.ph.d{background:linear-gradient(180deg,var(--haze),var(--lemon));color:var(--ink)}
+.ph.e{background:linear-gradient(120deg,var(--cobalt),var(--lemon))}
+.polaroid figcaption{font:600 .95rem var(--display);padding:10px 2px 12px;text-align:center}
+.tape{position:absolute;top:-10px;left:50%;width:70px;height:20px;transform:translateX(-50%) rotate(-4deg);background:color-mix(in srgb,var(--haze) 70%,transparent)}
+@media (max-width:640px){.board{height:auto;display:grid;grid-template-columns:1fr 1fr;gap:18px;padding:18px 14px 44px}.polaroid{position:relative;width:auto;max-width:100%;left:auto!important;top:auto!important}}
+
+/* confetti */
+.confetti{position:fixed;width:9px;height:14px;pointer-events:none;z-index:50;border-radius:2px}
 
 /* contact */
 .contact{background:var(--lemon);color:var(--ink)}
@@ -197,8 +235,9 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;
 
 <main id="top">
   <div class="wrap hero">
+    <svg class="ring" viewBox="0 0 150 150" aria-hidden="true"><defs><path id="circ" d="M75,75 m-58,0 a58,58 0 1,1 116,0 a58,58 0 1,1 -116,0"/></defs><text><textPath href="#circ" textLength="358" lengthAdjust="spacing">edit · create · prompt · repeat · </textPath></text><circle class="dot" cx="75" cy="75" r="9"/></svg>
     <div class="eyebrow">Jash Shah · Video editor · Content creator · Creative strategist · AI prompter</div>
-    <h1>Data in. Content that <span class="stop mark">lands</span> out.</h1>
+    <h1>Data in. Content that <button type="button" class="stop mark" id="shuffle" title="Click me" style="font:inherit;border:0;letter-spacing:inherit">lands</button> out.</h1>
     <div class="hero-row">
       <p>Hi, I'm <b>Jash</b> from Mumbai. Right now I edit videos, create content and plan creative strategy as a Social Media Intern at Hostoo Unlimited. I also read the numbers in GA4, build websites in HTML, and use AI to ship things fast.</p>
       <div class="console" aria-label="Prompt console">
@@ -206,6 +245,12 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;
         <div><span class="p">&gt; prompt:</span> <span id="typed">write a hook that stops the thumb in under 1 second</span><span class="caret"></span></div>
         <div class="out" id="typed-out">→ "You're scrolling past the one tip that fixes your reach."</div>
       </div>
+    </div>
+    <div class="stickers" aria-label="Fun facts">
+      <span class="sticker">Mumbai-made</span>
+      <span class="sticker">Edits at 2am</span>
+      <span class="sticker">Will travel for content</span>
+      <span class="sticker">Speaks 4 languages</span>
     </div>
   </div>
 
@@ -331,6 +376,23 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;
     </div>
   </section>
 </main>
+
+<section id="travel" class="travel" hidden>
+  <div class="wrap">
+    <div class="sec-head">
+      <div><div class="eyebrow">Off the clock</div><h2>When I'm not editing, I'm travelling.</h2></div>
+      <p>New places are where most of my content ideas start. Here are a few shots from the road. Drag them around.</p>
+    </div>
+    <div class="board" id="board">
+      <figure class="polaroid" style="left:3%;top:40px;transform:rotate(-6deg)"><span class="tape"></span><div class="ph a">photo 1</div><figcaption>Somewhere new</figcaption></figure>
+      <figure class="polaroid" style="left:24%;top:170px;transform:rotate(4deg)"><span class="tape"></span><div class="ph b">photo 2</div><figcaption>Golden hour</figcaption></figure>
+      <figure class="polaroid" style="left:45%;top:30px;transform:rotate(-2deg)"><span class="tape"></span><div class="ph c">photo 3</div><figcaption>Road trip</figcaption></figure>
+      <figure class="polaroid" style="left:64%;top:190px;transform:rotate(7deg)"><span class="tape"></span><div class="ph d">photo 4</div><figcaption>The view</figcaption></figure>
+      <figure class="polaroid" style="left:78%;top:20px;transform:rotate(-5deg)"><span class="tape"></span><div class="ph e">photo 5</div><figcaption>Next stop?</figcaption></figure>
+      <span class="board-hint">drag the photos ↔</span>
+    </div>
+  </div>
+</section>
 
 <section class="contact" id="contact">
   <div class="wrap">
@@ -486,7 +548,45 @@ Summary:
   const select = (el, done) => { const r = document.createRange(); r.selectNodeContents(el); const s = getSelection(); s.removeAllRanges(); s.addRange(r); done('Selected, press Ctrl+C'); };
   document.getElementById('copy').onclick = e => copyText(P.textContent, e.currentTarget, 'Copy prompt', P);
   const em = document.getElementById('email');
-  document.getElementById('copy-email').onclick = e => copyText(em.textContent, e.currentTarget, 'Copy email', em);
+  document.getElementById('copy-email').onclick = e => { copyText(em.textContent, e.currentTarget, 'Copy email', em); confetti(e.clientX, e.clientY); };
+
+  // Fun: click the highlighted word to shuffle it (with confetti).
+  const words = ['lands', 'pops', 'slaps', 'sells', 'trends', 'hits'];
+  let w = 0;
+  const sh = document.getElementById('shuffle');
+  sh.onclick = e => { w = (w + 1) % words.length; sh.textContent = words[w]; confetti(e.clientX, e.clientY); };
+
+  function confetti(x, y) {
+    if (reduce) return;
+    const cs = getComputedStyle(document.documentElement);
+    const cols = ['--lemon', '--pink', '--chalk', '--haze'].map(v => cs.getPropertyValue(v).trim());
+    for (let i = 0; i < 26; i++) {
+      const c = document.createElement('i'); c.className = 'confetti';
+      c.style.left = x + 'px'; c.style.top = y + 'px'; c.style.background = cols[i % cols.length];
+      document.body.appendChild(c);
+      const a = Math.random() * Math.PI * 2, d = 60 + Math.random() * 120;
+      c.animate([{ transform: 'translate(0,0) rotate(0)', opacity: 1 },
+                 { transform: `translate(${Math.cos(a) * d}px,${Math.sin(a) * d + 140}px) rotate(${Math.random() * 720}deg)`, opacity: 0 }],
+                { duration: 900 + Math.random() * 500, easing: 'cubic-bezier(.2,.7,.3,1)' }).onfinish = () => c.remove();
+    }
+  }
+
+  // Draggable polaroids (desktop board only).
+  const board = document.getElementById('board');
+  let z = 10;
+  board.querySelectorAll('.polaroid').forEach(p => {
+    p.addEventListener('pointerdown', e => {
+      if (matchMedia('(max-width:640px)').matches) return;
+      const b = board.getBoundingClientRect(), sx = e.clientX - p.offsetLeft, sy = e.clientY - p.offsetTop;
+      p.style.zIndex = ++z; p.setPointerCapture(e.pointerId);
+      const move = ev => {
+        p.style.left = Math.max(-40, Math.min(b.width - 80, ev.clientX - sx)) + 'px';
+        p.style.top = Math.max(-20, Math.min(b.height - 80, ev.clientY - sy)) + 'px';
+      };
+      const up = () => { p.removeEventListener('pointermove', move); p.removeEventListener('pointerup', up); };
+      p.addEventListener('pointermove', move); p.addEventListener('pointerup', up);
+    });
+  });
 })();
 </script>
 </body>
